@@ -3,6 +3,7 @@
     package="com.example.nd_excel">
 
     <application
+        android:name=".Util.App"
         android:allowBackup="true"
         android:icon="@drawable/bt"
         android:label="@string/app_new_name"
