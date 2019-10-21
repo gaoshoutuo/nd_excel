@@ -25,6 +25,7 @@ import com.example.nd_excel.Util.TestUtil;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 
@@ -104,11 +105,73 @@ public class MainActivity extends BaseActivity {
                  String tag=((TextView)v).getText().toString();
                  Log.e("112233",tag+"111");
                 switch (tag){//此处可以变量对变量吗
+
+                    case "测试列表0":
+                        //Toast.makeText(MainActivity.this,"测试列表1",Toast.LENGTH_SHORT).show();
+                        long l1=System.currentTimeMillis();
+
+                        HashMap map0=TestUtil.parseExcelXml_1("sheet888.xml");
+
+                        long l2=System.currentTimeMillis();
+                        Log.e("map0",(String)map0.get("D3")+"---"+(l2-l1)+"ms");
+                        break;
                     case "测试列表1":
                         Toast.makeText(MainActivity.this,"测试列表1",Toast.LENGTH_SHORT).show();
                         break;
 
-                        default:break;
+                    case "测试列表2":
+                        long l3=System.currentTimeMillis();
+
+                        HashMap map2=TestUtil.parseExcelXml_4("sharedStrings.xml");
+
+                        long l4=System.currentTimeMillis();
+                        Log.e("map0",(String)map2.get("540")+"---"+(l4-l3)+"ms");
+                        break;
+
+                    case "测试列表3":
+                        long l5=System.currentTimeMillis();
+
+                        HashMap map3=TestUtil.parseExcelXml_3("workbook.xml");
+
+                        long l6=System.currentTimeMillis();
+                        Log.e("map0",(String)map3.get("270")+"---"+(l6-l5)+"ms");
+                       break;
+
+                    case "测试列表4":
+                        //Toast.makeText(MainActivity.this,"测试列表1",Toast.LENGTH_SHORT).show();
+                        break;
+
+
+                    case "测试列表5":
+                       // Toast.makeText(MainActivity.this,"测试列表1",Toast.LENGTH_SHORT).show();
+                        break;
+
+
+                    case "测试列表6":
+                        //Toast.makeText(MainActivity.this,"测试列表1",Toast.LENGTH_SHORT).show();
+                        long l11=System.currentTimeMillis();
+
+                        //HashMap map6=TestUtil.parseExcelXml_6("drawing340.xml");
+                        HashMap map6=TestUtil.parseExcelXml_6(340,new HashMap<String, String>());
+                        long l12=System.currentTimeMillis();
+                        Log.e("map0","---"+(l12-l11)+"ms");
+                        break;
+
+
+                    case "测试列表7":
+                        //Toast.makeText(MainActivity.this,"测试列表1",Toast.LENGTH_SHORT).show();
+                        long l13=System.currentTimeMillis();
+
+                        //HashMap map6=TestUtil.parseExcelXml_6("drawing340.xml");
+                        ArrayList list7=TestUtil.parseExcelXml_7(new ArrayList<Integer>(),1);
+                        long l14=System.currentTimeMillis();
+
+                        if (list7.size()!=0) Log.e("map0","---"+(l14-l13)+"ms"+list7.get(0));
+                        else Log.e("map0","这个是良民没有图片");
+                        break;
+
+
+                    default:break;
                 }
              }
          };
