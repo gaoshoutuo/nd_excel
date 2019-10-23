@@ -3,12 +3,15 @@ package com.example.nd_excel.Util;
 import android.content.res.Resources;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +26,7 @@ public class TestUtil {//测试方法包
         return list;
     }
 
-    //解析excel xml  解析器表1包含关系
+    //解析excel sheet xml 单元格名称与index关系
     public static HashMap<String, String> parseExcelXml_1(String filename){
         //String []in=new String[9999];
         HashMap<String,String>map=new HashMap<>();
@@ -266,6 +269,71 @@ public class TestUtil {//测试方法包
         return list;
     }
 
+    //解析excel xml  表1 包含关系
+    public static HashMap<String, String> parseExcelXml_8(String filename){
+        HashMap<String,String>map=new HashMap<>();
+        try {
+            XmlPullParserFactory factory=XmlPullParserFactory.newInstance();
+            XmlPullParser xmlPullParser=factory.newPullParser();
+            try {
+                InputStream inputStream=App.getInstance().getResources().getAssets().open(filename);
+                xmlPullParser.setInput(inputStream,"UTF-8");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            StringBuffer bufferB=new StringBuffer();
+            StringBuffer bufferC=new StringBuffer();
+            StringBuffer bufferD=new StringBuffer();
+            StringBuffer bufferE=new StringBuffer();
+            StringBuffer bufferF=new StringBuffer();
+            while ( xmlPullParser.getEventType()!=xmlPullParser.END_DOCUMENT){//我服了 跟文件格式有关 我得多打很多空格才解决问题
+                if ("c".equals(xmlPullParser.getName())&&xmlPullParser.getEventType()==xmlPullParser.START_TAG){
+                String key=xmlPullParser.getAttributeValue(null,"r");
+                    xmlPullParser.next();
+                    if ("v".equals(xmlPullParser.getName())&& xmlPullParser.getEventType()==xmlPullParser.START_TAG){
+                        switch (key.substring(0,1)){
+                            case "B":
+                                bufferB.append(key).append("|");
+                                break;
+
+                            case "C":
+                                bufferC.append(key).append("|");
+                                break;
+
+                            case "D":
+                                bufferD.append(key).append("|");
+                                break;
+
+                            case "E":
+                                bufferE.append(key).append("|");
+                                break;
+
+                            case "F":
+                                bufferF.append(key).append("|");
+                                break;
+
+                                default:break;
+                        }
+                    }
+                }
+                if ("sheetData".equals(xmlPullParser.getName())&&xmlPullParser.getEventType()==xmlPullParser.END_TAG){
+                    map.put("B",bufferB.toString());
+                    map.put("C",bufferC.toString());
+                    map.put("D",bufferD.toString());
+                    map.put("E",bufferE.toString());
+                    map.put("F",bufferF.toString());
+                    return map;//类似哈希表
+                }
+                xmlPullParser.next();
+            }
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+
     //如表一解析 所有xml sheet数据到 一个总的hashmap<sheet_x,hashmap> 再将这个hashmap解析成json 配合 shaString
     public static void parseAllSheet(){
         HashMap<String,HashMap<String,String>>bigmap=new HashMap<>();
@@ -287,6 +355,94 @@ public class TestUtil {//测试方法包
             parseExcelXml_6(i,map);
         }
         return map;
+    }
+
+    //解析表一的前后布局成JSON
+    public static void makeJsonMenu(){
+        HashMap map=parseExcelXml_8("sheet888.xml");
+        String str[]={"B","C","D","E","F"};//对就是这种对象的命名我已经找到办法了去年11月结果搁置忘记
+        String strB[]=((String)map.get(str[0])).split("\\|");
+        String strC[]=((String)map.get(str[1])).split("\\|");
+        String strD[]=((String)map.get(str[2])).split("\\|");
+        String strE[]=((String)map.get(str[3])).split("\\|");
+        String strF[]=((String)map.get(str[4])).split("\\|");
+        JSONObject obj=new JSONObject();
+
+        makeJsonMenuPart_1(strB,strC,obj);
+        makeJsonMenuPart_1(strC,strD,obj);//224
+        makeJsonMenuPart_1(strD,strE,obj);//319
+        serZeroStrsIndex();
+        makeJsonMenuPart_1(strE,strF,obj);//143
+        serZeroStrsIndex();
+        Log.e("json",obj.toString());//
+
+
+    }
+    //输入数组 以及字符 求出关系 最后一个必然包含所有制
+    public static int sStrsIndex=0;
+    public static void serZeroStrsIndex(){
+        sStrsIndex=0;
+    }
+    public static JSONObject makeJsonMenuPart_1(String [] fStrs,String [] sStrs,JSONObject obj){
+        StringBuffer buffer=new StringBuffer();
+
+        for (int i=0;i<fStrs.length;i++){
+            Log.e("json",i+"-"+fStrs.length+"-"+sStrsIndex+"-"+sStrs.length);
+            if (i+1==fStrs.length){
+                for (int k=sStrsIndex;k<sStrs.length;k++){
+                    buffer.append(sStrs[k]).append("|");
+                    try {
+                        obj.put(fStrs[i],buffer.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                sStrsIndex=0;
+                return obj;
+            }
+
+            for (int j=0;j<sStrs.length&&sStrsIndex<sStrs.length;j++){
+                String str1=fStrs[i];
+                String str2=fStrs[i+1];
+                String str3=sStrs[sStrsIndex];
+                int index1= Integer.parseInt(str1.substring(1));
+                int index2= Integer.parseInt(str2.substring(1));
+                int index3= Integer.parseInt(str3.substring(1));
+
+                if (index3>=index1&&index3<index2){
+                    //Log.e("json",index1+"--"+index2+"--"+index3+"--");
+                    buffer.append(str3).append("|");
+                    sStrsIndex++;
+                }else {
+                    try {
+                        String abc=buffer.toString();
+                        obj.put(str1,abc);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    buffer=new StringBuffer();
+                    break;
+                }
+            }
+
+        }
+        return obj;
+    }
+
+    //从asset中读取资产
+    public static String readAssetFile(String filename){
+        return null;
+    }
+
+    //给asset写入资产
+    public static String writeAssetFile(String filename,JSONObject obj){
+        try {
+            InputStream inputStream=App.getInstance().getResources().getAssets().open(filename);
+            //OutputStream outputStream=App.getInstance().getResources().getAssets().没有这个方法
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static String initXmlStr(String filename){

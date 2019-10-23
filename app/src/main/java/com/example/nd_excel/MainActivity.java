@@ -4,6 +4,7 @@ package com.example.nd_excel;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nd_excel.Activity.BaseActivity;
+import com.example.nd_excel.Activity.TestActivity;
 import com.example.nd_excel.Util.TestUtil;
 
 import org.json.JSONObject;
@@ -168,6 +170,41 @@ public class MainActivity extends BaseActivity {
 
                         if (list7.size()!=0) Log.e("map0","---"+(l14-l13)+"ms"+list7.get(0));
                         else Log.e("map0","这个是良民没有图片");
+                        break;
+
+                    case "测试列表8":
+                        //Toast.makeText(MainActivity.this,"测试列表1",Toast.LENGTH_SHORT).show();
+                        long l15=System.currentTimeMillis();
+
+                        HashMap map8=TestUtil.parseExcelXml_8("sheet888.xml");
+
+                        String[]str8D= ((String)map8.get("B")).split("\\|");//需要加一个转义太坑了
+                        //for (int i=0;i<str8D.length;i++){
+                            Log.e("map0",(String)map8.get("D")+"---");
+                        Log.e("map0",(String)map8.get("E")+"---");
+                        //}
+
+                        //Log.e("map0",(String)map8.get("B")+"---"+str8D.length);
+                        //Log.e("map0",(String)map8.get("C")+"---");
+                        //Log.e("map0",(String)map8.get("D")+"---");
+                        //Log.e("map0",(String)map8.get("E")+"---");
+                        long l16=System.currentTimeMillis();
+                        //Log.e("map0",(String)map8.get("F")+"---"+(l16-l15)+"ms");
+                        break;
+
+                    case "测试列表9":
+                        //Toast.makeText(MainActivity.this,"测试列表1",Toast.LENGTH_SHORT).show();
+                        long l17=System.currentTimeMillis();
+
+                        TestUtil.makeJsonMenu();
+                        long l18=System.currentTimeMillis();
+                        Log.e("map0",(l18-l17)+"ms");
+                        break;
+
+                    case "测试列表10":
+                        Intent intent10=new Intent(MainActivity.this, TestActivity.class);
+                        MainActivity.this.startActivity(intent10);
+                        //Toast.makeText(MainActivity.this,"测试列表1",Toast.LENGTH_SHORT).show();
                         break;
 
 
