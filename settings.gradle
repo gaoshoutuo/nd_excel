@@ -1,1 +1,3 @@
-include ':app'
+include ':app',':LockTableView-master'
+
+//project(':LockTableView-master').projectDir = new File("LockTableView-master")

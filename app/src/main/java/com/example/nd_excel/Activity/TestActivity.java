@@ -1,16 +1,25 @@
 package com.example.nd_excel.Activity;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bm.library.PhotoView;
 import com.example.nd_excel.R;
+import com.kelin.scrollablepanel.library.PanelAdapter;
+import com.kelin.scrollablepanel.library.ScrollablePanel;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,11 +27,88 @@ import java.util.ArrayList;
 public class TestActivity extends BaseActivity {
     private ViewPager viewPager;
     private ArrayList<View> pageview;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        //viewPagerSet();
+        //一个做校长的为人
+        //makePannelAdapter();
 
+    }
+
+    private void makePannelAdapter(){
+        TestPannelAdapter testPanelAdapter = new TestPannelAdapter(makeCellList(),TestActivity.this);
+        ScrollablePanel scrollablePanel = (ScrollablePanel) findViewById(R.id.scrollable_panel);
+        scrollablePanel.setPanelAdapter(testPanelAdapter);
+    }
+
+    private ArrayList<ArrayList<String>> makeCellList(){
+        ArrayList<ArrayList<String>>lists=new ArrayList<>();
+        for (int i=0;i<20;i++){
+            ArrayList<String>list=new ArrayList<>();
+            for (int j=0;j<9;j++){
+                list.add(i+"-"+j);
+            }
+            lists.add(list);
+        }
+        return lists;
+    }
+
+    //testPannelAdapter
+    public class TestPannelAdapter extends PanelAdapter{
+        private ArrayList<ArrayList<String>>lists;
+        private Activity activity;
+
+        public TestPannelAdapter() {
+        }
+
+        public TestPannelAdapter(ArrayList<ArrayList<String>> lists, Activity activity) {
+            this.lists = lists;
+            this.activity = activity;
+        }
+
+        @Override
+        public int getRowCount() {
+            return lists.size();
+        }
+
+        @Override
+        public int getColumnCount() {
+            return lists.get(0).size();
+        }
+
+        @Override
+        public int getItemViewType(int row, int column) {
+            return super.getItemViewType(row, column);
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int row, int column) {
+            ((PannelViewHolder)holder).textView.setText((String)(lists.get(row).get(column)));
+
+        }
+
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view=LayoutInflater.from(TestActivity.this).inflate(R.layout.item_tablecell,null);
+            PannelViewHolder viewHolder=new PannelViewHolder(view);
+            return viewHolder;
+        }
+
+        private class PannelViewHolder extends RecyclerView.ViewHolder {
+            public TextView textView;
+            public PannelViewHolder(@NonNull View itemView) {
+                super(itemView);
+                textView=itemView.findViewById(R.id.pannel_text);
+            }
+        }
+    }
+
+
+    void viewPagerSet(){
         viewPager = (ViewPager) findViewById(R.id.test_viewpager);
 
         //查找布局文件用LayoutInflater.inflate
@@ -45,8 +131,15 @@ public class TestActivity extends BaseActivity {
         PhotoView photoView2=view2.findViewById(R.id.test_image_item);
         PhotoView photoView3=view3.findViewById(R.id.test_image_item);
         try {
-            photoView1.setMaxHeight(300);
-            photoView1.setImageBitmap(BitmapFactory.decodeStream(getResources().getAssets().open("image1.png"))); photoView1.enable();
+            //photoView1.setMaxHeight(300);  我找到调整大小的办法了
+
+            //Log.e("width",photoView1.getLayoutParams().width+"");//-1 我惊呆了
+
+            Bitmap bitmap1=BitmapFactory.decodeStream(getResources().getAssets().open("image1.png"));
+            double sh=bitmap1.getWidth()/bitmap1.getHeight();
+            Log.e("width",bitmap1.getWidth()+"--"+bitmap1.getHeight());
+            photoView1.getLayoutParams().height= (int) (1080/sh);//1080? 1280?
+            photoView1.setImageBitmap(bitmap1); photoView1.enable();
             photoView2.setImageBitmap(BitmapFactory.decodeStream(getResources().getAssets().open("image2.png"))); photoView2.enable();
             photoView3.setImageBitmap(BitmapFactory.decodeStream(getResources().getAssets().open("image3.png"))); photoView3.enable();
         } catch (IOException e) {
@@ -91,7 +184,6 @@ public class TestActivity extends BaseActivity {
 
         //绑定适配器
         viewPager.setAdapter(mPagerAdapter);
-
     }
 
 

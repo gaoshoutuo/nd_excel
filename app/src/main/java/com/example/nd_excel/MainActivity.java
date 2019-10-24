@@ -5,6 +5,7 @@ package com.example.nd_excel;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 
 import com.example.nd_excel.Activity.BaseActivity;
 import com.example.nd_excel.Activity.TestActivity;
+import com.example.nd_excel.Util.App;
+import com.example.nd_excel.Util.FileTestUtil;
 import com.example.nd_excel.Util.TestUtil;
 
 import org.json.JSONObject;
@@ -207,6 +210,11 @@ public class MainActivity extends BaseActivity {
                         //Toast.makeText(MainActivity.this,"测试列表1",Toast.LENGTH_SHORT).show();
                         break;
 
+                    case "测试列表11":
+                        Intent intent11= (Intent) FileTestUtil.
+                                openFile((App.getInstance().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)).getPath());
+                        MainActivity.this.startActivity(intent11);
+                        break;
 
                     default:break;
                 }

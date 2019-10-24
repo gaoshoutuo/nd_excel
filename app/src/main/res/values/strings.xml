@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">nd_excel</string>
-    <string name="app_new_name">甬铁信工资料</string>
+    <!--<string name="app_name_1">nd_excel</string>-->
+    <string name="app_new_name_10086">甬铁信工资料</string>
+    <!-- app_new_name_1 app_new_name app_name 都冲突 真邪门-->
 </resources>
