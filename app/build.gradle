@@ -43,4 +43,6 @@ dependencies {
     //implementation 'com.github.bumptech.glide:glide:4.10.0'
     //annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
     implementation 'com.bm.photoview:library:1.4.1'
+    //file select
+    implementation 'com.leon:lfilepickerlibrary:1.8.0'
 }

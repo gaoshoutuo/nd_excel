@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 
 import android.os.Bundle;
 
+import android.support.annotation.Nullable;
 import android.support.v7.view.menu.MenuAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,15 +27,19 @@ import com.example.nd_excel.Activity.TestActivity;
 import com.example.nd_excel.Util.App;
 import com.example.nd_excel.Util.FileTestUtil;
 import com.example.nd_excel.Util.TestUtil;
+import com.leon.lfilepickerlibrary.LFilePicker;
+import com.leon.lfilepickerlibrary.utils.Constant;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 
 public class MainActivity extends BaseActivity {
+    static int REQUESTCODE_FROM_ACTIVITY=-1;
     TextView poT;
     ImageView back;
     ImageView backMenu;
@@ -55,6 +60,26 @@ public class MainActivity extends BaseActivity {
         back.setOnClickListener(backListener);backMenu.setOnClickListener(backMenuListener);
         poT.setText("当前位置:"+"目录");
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == REQUESTCODE_FROM_ACTIVITY) {
+                //If it is a file selection mode, you need to get the path collection of all the files selected
+                List<String> list = data.getStringArrayListExtra(Constant.RESULT_INFO);//Constant.RESULT_INFO == "paths"
+                //List<String> list = data.getStringArrayListExtra("paths");
+                //Toast.makeText(getApplicationContext(), "selected " + list.size() , Toast.LENGTH_SHORT).show();
+                //If it is a folder selection mode, you need to get the folder path of your choice
+                String path = data.getStringExtra("path");
+
+                //Toast.makeText(getApplicationContext(), "The selected path is:" + path, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "The selected path is:" + list.get(0), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     // using handler?
     public void changed(ArrayList<String> list,ViewHolderAdapter adapter,String tag){
         setPotText(tag);
@@ -211,15 +236,27 @@ public class MainActivity extends BaseActivity {
                         break;
 
                     case "测试列表11":
-                        Intent intent11= (Intent) FileTestUtil.
+                       /* Intent intent11= (Intent) FileTestUtil.
                                 openFile((App.getInstance().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)).getPath());
-                        MainActivity.this.startActivity(intent11);
+                        MainActivity.this.startActivity(intent11);*/
+                        //int REQUESTCODE_FROM_ACTIVITY = 1000;
+                        REQUESTCODE_FROM_ACTIVITY = 1000;
+                        LFilePicker lFilePicker=new LFilePicker();
+                        lFilePicker.withActivity(MainActivity.this)
+                                .withRequestCode(REQUESTCODE_FROM_ACTIVITY)
+                                .withStartPath("/storage/emulated/0")
+                                .withIsGreater(true)//big more zhan
+                                .withFileSize(500 * 1024*100)
+                                .start();
+
                         break;
 
                     default:break;
                 }
              }
          };
+
+
 
 
 
