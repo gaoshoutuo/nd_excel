@@ -75,7 +75,11 @@ public class MainActivity extends BaseActivity {
                 String path = data.getStringExtra("path");
 
                 //Toast.makeText(getApplicationContext(), "The selected path is:" + path, Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), "The selected path is:" + list.get(0), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "The selected path is:" + list.get(0), Toast.LENGTH_LONG).show();
+                String readStr=TestUtil.readFileInE(list.get(0));
+                TestUtil.wirteFileToE(path+"/"+"1234.txt",readStr);
+                Log.e("111",path);
+                Log.e("111",readStr);
             }
         }
     }
@@ -155,7 +159,7 @@ public class MainActivity extends BaseActivity {
                         HashMap map2=TestUtil.parseExcelXml_4("sharedStrings.xml");
 
                         long l4=System.currentTimeMillis();
-                        Log.e("map0",(String)map2.get("540")+"---"+(l4-l3)+"ms");
+                        Log.e("map0",map2.size()+"---"+(l4-l3)+"ms");
                         break;
 
                     case "测试列表3":
@@ -240,15 +244,35 @@ public class MainActivity extends BaseActivity {
                                 openFile((App.getInstance().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS)).getPath());
                         MainActivity.this.startActivity(intent11);*/
                         //int REQUESTCODE_FROM_ACTIVITY = 1000;
-                        REQUESTCODE_FROM_ACTIVITY = 1000;
+                      /*  REQUESTCODE_FROM_ACTIVITY = 1000;
                         LFilePicker lFilePicker=new LFilePicker();
                         lFilePicker.withActivity(MainActivity.this)
                                 .withRequestCode(REQUESTCODE_FROM_ACTIVITY)
                                 .withStartPath("/storage/emulated/0")
                                 .withIsGreater(true)//big more zhan
                                 .withFileSize(500 * 1024*100)
-                                .start();
+                                .start();*/
+                        //TestUtil.fileSelect(REQUESTCODE_FROM_ACTIVITY,MainActivity.this,500*1024*100);
 
+                        //TestUtil.fileSelect(1000,MainActivity.this,0);
+                        //REQUESTCODE_FROM_ACTIVITY=1000;
+                        break;
+
+                    case "测试列表12"://拼最后的json文件
+                        //TestUtil.parseAllSheet();
+                     /*   long l23=System.currentTimeMillis();
+                        TestUtil.parseDrawXml();
+                        long l24=System.currentTimeMillis();
+                        Log.e("map0",(l24-l23)+"ms");*/
+                        //TestUtil.parseExcelXml_2("sheet888.xml");//600多 只算超链接
+                        //TestUtil.parseExcelXml_3("workbook.xml");//625 是xml都算
+
+                        //TestUtil.makeSharedStringJsonToE();
+
+                        //TestUtil.alignXmlNum();
+
+                        //TestUtil.makeJsonMenu();
+                        TestUtil.parseDrawXml();
                         break;
 
                     default:break;
