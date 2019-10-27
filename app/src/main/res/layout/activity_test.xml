@@ -11,7 +11,7 @@
     <com.kelin.scrollablepanel.library.ScrollablePanel
         android:id="@+id/scrollable_panel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="300dp" />
 
  <!--   <View
         android:layout_width="match_parent"

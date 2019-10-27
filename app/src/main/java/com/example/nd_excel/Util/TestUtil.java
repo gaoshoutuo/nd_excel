@@ -2,10 +2,18 @@ package com.example.nd_excel.Util;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
+import android.widget.TextView;
 
+import com.bm.library.PhotoView;
+import com.example.nd_excel.Activity.TestActivity;
+import com.example.nd_excel.Adapter.TableAdapter;
 import com.example.nd_excel.MainActivity;
+import com.example.nd_excel.R;
+import com.kelin.scrollablepanel.library.ScrollablePanel;
 import com.leon.lfilepickerlibrary.LFilePicker;
 
 import org.json.JSONException;
@@ -14,6 +22,8 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,10 +37,22 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 
 public class TestUtil {//测试方法包  /storage/emulated/0
     //mainactivity 的menu arraylist 的测试
@@ -258,10 +280,185 @@ public class TestUtil {//测试方法包  /storage/emulated/0
             }else if (drawFileId==107){
                 stringBuffer.append("image").append(203).append("|");
                 stringBuffer.append("image").append(204).append("|");
-                imageId=196;
+                imageId=205;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==108){
+                stringBuffer.append("image").append(206).append("|");
+                stringBuffer.append("image").append(207).append("|");
+                imageId=208;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==110){
+                stringBuffer.append("image").append(205).append("|");
+                imageId=208;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==111){
+                stringBuffer.append("image").append(208).append("|");
+                stringBuffer.append("image").append(209).append("|");
+                imageId=210;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==113){
+                stringBuffer.append("image").append(211).append("|");
+                stringBuffer.append("image").append(212).append("|");
+                imageId=213;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==125){
+                stringBuffer.append("image").append(224).append("|");
+                stringBuffer.append("image").append(225).append("|");
+                imageId=226;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==127){
+                stringBuffer.append("image").append(227).append("|");
+
+                imageId=228;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==128){
+                stringBuffer.append("image").append(228).append("|");
+                stringBuffer.append("image").append(229).append("|");
+                imageId=230;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==129){
+                stringBuffer.append("image").append(230).append("|");
+                imageId=231;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==169){
+                stringBuffer.append("image").append(316).append("|");
+                stringBuffer.append("image").append(315).append("|");
+                imageId=317;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==171){
+                stringBuffer.append("image").append(322).append("|");
+                stringBuffer.append("image").append(323).append("|");
+                stringBuffer.append("image").append(324).append("|");
+                stringBuffer.append("image").append(325).append("|");
+                stringBuffer.append("image").append(326).append("|");
+                imageId=327;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==175){
+                stringBuffer.append("image").append(339).append("|");
+                imageId=340;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==176){
+                stringBuffer.append("image").append(340).append("|");
+                imageId=341;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==186){
+                stringBuffer.append("image").append(353).append("|");
+                imageId=354;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==187){
+                stringBuffer.append("image").append(353).append("|");
+                imageId=354;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==188){
+                stringBuffer.append("image").append(354).append("|");
+                imageId=354;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==189){
+                stringBuffer.append("image").append(354).append("|");
+                imageId=354;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==190){
+                stringBuffer.append("image").append(355).append("|");
+                imageId=354;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==191){
+                stringBuffer.append("image").append(355).append("|");
+                imageId=356;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==192){
+                stringBuffer.append("image").append(355).append("|");
+                imageId=356;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==193){
+                stringBuffer.append("image").append(355).append("|");
+                imageId=356;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==204){
+                stringBuffer.append("image").append(366).append("|");
+                imageId=367;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==217){
+                stringBuffer.append("image").append(382).append("|");
+                stringBuffer.append("image").append(383).append("|");
+                imageId=384;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==220){
+                stringBuffer.append("image").append(387).append("|");
+                imageId=388;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==224){
+                stringBuffer.append("image").append(392).append("|");
+                stringBuffer.append("image").append(393).append("|");
+                stringBuffer.append("image").append(366).append("|");
+                imageId=394;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==251){
+                stringBuffer.append("image").append(436).append("|");
+                stringBuffer.append("image").append(439).append("|");
+                imageId=440;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==255){
+                stringBuffer.append("image").append(436).append("|");
+                stringBuffer.append("image").append(449).append("|");
+                stringBuffer.append("image").append(450).append("|");
+                imageId=451;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==259){
+                stringBuffer.append("image").append(460).append("|");
+                stringBuffer.append("image").append(469).append("|");
+                stringBuffer.append("image").append(470).append("|");
+                stringBuffer.append("image").append(471).append("|");
+                imageId=472;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==336){
+                stringBuffer.append("image").append(629).append("|");
+                stringBuffer.append("image").append(630).append("|");
+                imageId=631;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==337){
+                stringBuffer.append("image").append(611).append("|");
+                imageId=631;
+                map.put(drawFileId+"",stringBuffer.toString());
+                return map;//类似哈希表
+            }else if (drawFileId==345){
+                stringBuffer.append("image").append(642).append("|");
+                stringBuffer.append("image").append(641).append("|");
+                imageId=643;
                 map.put(drawFileId+"",stringBuffer.toString());
                 return map;//类似哈希表
             }
+
+
+
 
 
             while ( xmlPullParser.getEventType()!=xmlPullParser.END_DOCUMENT){
@@ -590,16 +787,42 @@ public class TestUtil {//测试方法包  /storage/emulated/0
             if (map1.get(value2)==null||map1.get(value2).equals("")){
                 continue;
             }else {
-                json.put("sheet"+i+".xml",value2);
+                //json.put("sheet"+i+".xml",value2);//不应该这样做 反过来
+                json.put(value2,"sheet"+i+".xml");
                 //Log.e("sheet"+i+".xml",value2);
             }
         }
         json.put("sheet"+1+".xml","目录");
-        String filename=path+"/tuo/"+jsonFileNames[7];
+        //String filename=path+"/tuo/"+jsonFileNames[7];
+            String filename=path+"/tuo/"+jsonFileNames[8];
         Log.e("完成进度",filename);
         wirteFileToE(filename,json.toString());
         long l2=System.currentTimeMillis();
         Log.e("完成进度",(l2-l1)/1000+"秒");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // xml2 E554 3.1.2,3 make
+    public static void makeHypJsonToE(){
+        //jsonFileNames[9];
+        long l1=System.currentTimeMillis();
+        try {
+        JSONObject json=new JSONObject();
+        HashMap<String,String>map=TestUtil.parseExcelXml_2("sheet888.xml");//582 只算超链接
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key=(String)entry.getKey();
+            String value=(String)entry.getValue();
+            //Log.e("完成进度",key+"--"+value+"--"+sheetName);
+                json.put(value,key);
+        }
+            String filename=path+"/tuo/"+jsonFileNames[10];
+            Log.e("完成进度",filename+map.size());
+            wirteFileToE(filename,json.toString());
+            long l2=System.currentTimeMillis();
+            Log.e("完成进度",(l2-l1)+"ms");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -625,15 +848,309 @@ public class TestUtil {//测试方法包  /storage/emulated/0
 
     }
 
+    //
+    public static void makeImageNameToE(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                long l1=System.currentTimeMillis();
+                JSONObject json=new JSONObject();
+                ConcurrentLinkedQueue<String> clq=TestUtil.zipFileList(TestUtil.path + "/Download/知识点细化0924.zip");
+                String abc=null;
+               /* String testStr[]="xl/media/image596.jpeg".split("/");
+                String testStr2[]=testStr[testStr.length-1].split("\\.");
+                Log.e("aaa",testStr[testStr.length-1]+testStr2[0]+testStr2[1]);*/
+                while ((abc=clq.poll())!=null){
+                    //es.submit(r1);
+                    Log.e("aaaaa","----"+abc+"----");
+                    String strImg[]=abc.split("/");
+                    String littleStr=strImg[strImg.length-1];
+                    String []changeStr=littleStr.split("\\.");
+                    if (littleStr.contains("wmf")||littleStr.contains("emf")){
+                        littleStr=changeStr[0]+"."+"png";
+                    }
+                    try {
+                        json.put(changeStr[0],littleStr);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                String filename=path+"/tuo/"+jsonFileNames[11];
+                Log.e("完成进度",filename);
+                wirteFileToE(filename,json.toString());
+                long l2=System.currentTimeMillis();
+                Log.e("完成进度",(l2-l1)/1000+"秒");
+            }
+        }).start();
+    }
+
     //Menu_json make
    /* public static void makeJsonToE(){
 
     }*/
 
+   // about mu ui
+    public static void photoUtil(PhotoView view,String filePath){// cacu height and width
+        Bitmap bitmap= null;
+        try {
+            bitmap = BitmapFactory.decodeStream(App.getInstance().getResources().getAssets().open(filePath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        double sh=bitmap.getWidth()/bitmap.getHeight();
+        Log.e("width",bitmap.getWidth()+"--"+bitmap.getHeight());
+        if (bitmap.getWidth()*bitmap.getHeight()>15000)
+        view.getLayoutParams().height= (int) (1080/sh);//1080? 1280?
+        else{
+            view.getLayoutParams().height= bitmap.getHeight();
+            view.getLayoutParams().width=bitmap.getWidth();
+        }
+        view.setImageBitmap(bitmap); view.enable();
+    }
+
+    //textUtil
+    public static void TextUtil(TextView view,String textStr){
+        int mag=textStr.length()/10 +1;
+        view.getLayoutParams().height=view.getLayoutParams().height *mag;
+    }
+
+    //tableUtil TestPannelAdapter
+    public static void tableUtil(ScrollablePanel view, ArrayList<ArrayList<String>>lists,Activity activity){
+        TableAdapter tableAdapter = new TableAdapter(lists,activity);
+        //ScrollablePanel scrollablePanel = (ScrollablePanel) findViewById(R.id.scrollable_panel);
+        view.setPanelAdapter(tableAdapter);
+    }
+
+    //make seq 1 2
+    public static void makeSeqTextJsonToE(){
+        long l1=System.currentTimeMillis();
+        JSONObject json=new JSONObject();
+        JSONObject hypJson=JsonConCap.getHyp_2_Json();
+        Iterator<String> iterator1 =hypJson.keys();
+        while(iterator1.hasNext()){
+            String key1 = iterator1.next();
+            String value1 = hypJson.optString(key1);
+            makeSeqPart1(key1,value1,json);
+        }
+
+        String filename=path+"/tuo/"+jsonFileNames[14];
+        Log.e("完成进度",filename);
+        wirteFileToE(filename,json.toString());
+        long l2=System.currentTimeMillis();
+        Log.e("完成进度",(l2-l1)/1000+"秒");
+    }
+
+    public static void makeSeqImageJsonToE(){
+        long l1=System.currentTimeMillis();
+
+        JSONObject json=new JSONObject();
+       /* JSONObject imageJson=JsonConCap.getImageJson();
+        JSONObject imageNameJson=JsonConCap.getImageNameJson();
+        JSONObject hypJson=JsonConCap.getHyp_2_Json();
+
+        Iterator<String> iterator =hypJson.keys();
+        while (iterator.hasNext()){
+            String key=iterator.next();
+            String value=hypJson.optString(key);
+        }
+
+
+        Iterator<String> iterator1 =imageJson.keys();
+        while (iterator1.hasNext()){
+            StringBuffer buffer=new StringBuffer();
+            String key=iterator1.next();
+            String value=imageJson.optString(key);
+            String imageStr[]=value.split("\\|");
+            for (int i=0;i<imageStr.length;i++){
+                String readImageName=imageNameJson.optString(imageStr[i]);
+                if (readImageName!=null)buffer.append(readImageName).append("|");
+            }
+            try {
+                json.put(value,buffer.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }*/
+        JSONObject imageJson=JsonConCap.getImageJson();
+        JSONObject imageNameJson=JsonConCap.getImageNameJson();
+        JSONObject hypJson=JsonConCap.getHyp_2_Json();
+        JSONObject xmlChapterJson=JsonConCap.getXmlChapter_2_Json();
+        Iterator<String>iterator=hypJson.keys();
+        while (iterator.hasNext()){
+            StringBuffer buffer=new StringBuffer();
+            String key=iterator.next();
+            String value=hypJson.optString(key);
+            if (value==null||"".equals(value))continue;
+            String xmlData=xmlChapterJson.optString(value);
+            if (xmlData==null||"".equals(xmlData))continue;
+            String imageStr=imageJson.optString(xmlData);
+            String imageArr[]=imageStr.split("\\|");
+            for (int i=0;i<imageArr.length;i++){
+                String readImageName=imageNameJson.optString(imageArr[i]);
+                if (readImageName!=null)buffer.append(readImageName).append("|");
+            }
+            try {
+                Log.e(key,buffer.toString());
+                json.put(key,buffer.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        String filename=path+"/tuo/"+jsonFileNames[13];
+        Log.e("完成进度",filename);
+        wirteFileToE(filename,json.toString());
+        long l2=System.currentTimeMillis();
+        Log.e("完成进度",(l2-l1)/1000+"秒");
+    }
+
+    public static void makeSeqPart1(String key,String value,JSONObject json) {
+        StringBuffer buffer1=new StringBuffer();
+        try {
+        JSONObject sharedStringJson=JsonConCap.getSharedStringJson();
+        JSONObject cacuJson=JsonConCap.getCacuJson();
+        JSONObject xmlChapterJson=JsonConCap.getXmlChapter_2_Json();
+        String xmlData=xmlChapterJson.optString(value);
+            JSONObject sheetJson=null;
+
+        if (xmlData!=null||!xmlData.equals("")){
+
+            //Log.e("-----","--"+value+"--");
+            String sheetData=cacuJson.optString(xmlData);
+            if (sheetData==null||"".equals(sheetData))return;
+            sheetJson=new JSONObject(sheetData);
+        }else {
+            return;
+        }
+        //limit null
+
+            String indexs=makeSeqPart2(sheetJson);
+        if (indexs==null||"".equals(indexs))return;
+            String index[]=indexs.split("\\|");
+            for (int i=0;i<index.length;i++){
+                String sharedValue=sharedStringJson.optString(index[i]);
+                buffer1.append(sharedValue).append("|");
+            }
+            json.put(key,buffer1.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String makeSeqPart2(JSONObject json) {
+       StringBuffer buffer1=new StringBuffer();
+        StringBuffer buffer2=new StringBuffer();
+            Iterator<String> iterator1 =json.keys();
+            while(iterator1.hasNext()){
+                String key1 = iterator1.next();
+                String value1 = json.optString(key1);
+                buffer1.append(value1).append("|");
+            }
+
+
+            String buffStr1[]=buffer1.toString().split("\\|");
+        if (buffStr1.length==0)return null;
+                    int[] integerArr=new int[buffStr1.length];
+                    for (int i=0;i<buffStr1.length;i++){
+
+                        if (buffStr1[i]==null||"".equals(buffStr1[i])){
+                            Log.e("-----","--"+buffer1.toString()+"--");
+                            continue;
+                        }
+                        integerArr[i]=Integer.parseInt(buffStr1[i]);
+
+                    }
+        Arrays.sort(integerArr);
+        for (int i=0;i<buffStr1.length;i++){
+            buffer2.append(integerArr[i]+"").append("|");//
+        }
+
+        return buffer2.toString();
+    }
+
+        //1 2 text  34 image
+        public static void makeSeqPart3(String key,String value,JSONObject json) {
+            StringBuffer buffer1=new StringBuffer();
+            try {
+                JSONObject sharedStringJson=JsonConCap.getSharedStringJson();
+                JSONObject cacuJson=JsonConCap.getCacuJson();
+                JSONObject xmlChapterJson=JsonConCap.getXmlChapter_2_Json();
+                String xmlData=xmlChapterJson.optString(value);
+                JSONObject sheetJson=null;
+                if (xmlData!=null||!xmlData.equals("")){
+
+                    //Log.e("-----","--"+value+"--");
+                    String sheetData=cacuJson.optString(xmlData);
+                    if (sheetData==null||"".equals(sheetData))return;
+                    sheetJson=new JSONObject(sheetData);
+                }else {
+                    return;
+                }
+                //limit null
+
+                String indexs=makeSeqPart4(sheetJson);
+                if (indexs==null||"".equals(indexs))return;
+                String index[]=indexs.split("\\|");
+                for (int i=0;i<index.length;i++){
+                    String sharedValue=sharedStringJson.optString(index[i]);
+                    buffer1.append(sharedValue).append("|");
+                }
+                json.put(key,buffer1.toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+    }
+
+    public static String makeSeqPart4(JSONObject json) {
+        StringBuffer buffer1=new StringBuffer();
+        StringBuffer buffer2=new StringBuffer();
+        Iterator<String> iterator1 =json.keys();
+        while(iterator1.hasNext()){
+            String key1 = iterator1.next();
+            String value1 = json.optString(key1);
+            buffer1.append(value1).append("|");
+        }
+
+
+        String buffStr1[]=buffer1.toString().split("\\|");
+        if (buffStr1.length==0)return null;
+        int[] integerArr=new int[buffStr1.length];
+        for (int i=0;i<buffStr1.length;i++){
+
+            if (buffStr1[i]==null||"".equals(buffStr1[i])){
+                Log.e("-----","--"+buffer1.toString()+"--");
+                continue;
+            }
+            integerArr[i]=Integer.parseInt(buffStr1[i]);
+
+        }
+        Arrays.sort(integerArr);
+        for (int i=0;i<buffStr1.length;i++){
+            buffer2.append(integerArr[i]+"").append("|");//
+        }
+
+        return buffer2.toString();
+    }
+
     static String[]jsonFileNames=new String[]{
-      "cacu_1.json","image_1.json","menu_1.json",
-            "q_a_1.json","pre_say_1.json","sequential_aeeangement_1.json",
-            "shared_string_1.json","xml_chapter_1.json"
+      "cacu_1.json",
+            "image_1.json",
+            "menu_1.json",
+            "q_a_1.json",
+            "pre_say_1.json",
+            "sequential_aeeangement_1.json",
+            "shared_string_1.json",
+            "xml_chapter_1.json",
+            "xml_chapter_2.json",
+            "hyp.json",
+            "hyp_1.json",
+            "image_name_1.json",//index 11
+            "text_seq.json",
+            "image_sep.json",
+            "text_seq_1.json"//index 14
     };
 
     /**
@@ -675,6 +1192,234 @@ public class TestUtil {//测试方法包  /storage/emulated/0
         return buffer.toString();
 
     }
+
+    public static JSONObject readJsonInAsset(String jsonName){
+        JSONObject json=null;
+        StringBuffer buffer=new StringBuffer();
+        try {
+            InputStream is=App.getInstance().getResources().getAssets().open(jsonName);
+            InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+            BufferedReader reader = new BufferedReader(isr);
+            String str=null;
+            while ((str=reader.readLine())!=null){
+                buffer.append(str);
+            }
+            // Log.e("buffer",buffer.toString()+"===");
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            json=new JSONObject(buffer.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return json;
+    }
+
+    // 解压文件该目录下所有文件列表 多线程的 生产者消费者
+    public static ConcurrentLinkedQueue zipFileList(String zippath){
+        ConcurrentLinkedQueue<String> clq=new ConcurrentLinkedQueue();
+        try {
+            File file = new File(zippath);
+            ZipInputStream zipInput = new ZipInputStream(new FileInputStream(file));
+            ZipEntry entry = null;
+            while((entry = zipInput.getNextEntry()) != null){
+                if (entry.isDirectory()){
+                    continue;
+                }
+                else {
+                    if (entry.getName().contains("media"))
+                    clq.add(entry.getName());
+                    //Log.e("解压缩" , entry.getName() + "文件");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return clq;
+    }
+
+    // multThread 线程版本的解压
+    public static void zipContraMultiFileMultThread(String zippath ,String outzippath,String filePath){
+        try {
+            File file = new File(zippath);
+            File outFile = null;
+            ZipFile zipFile = new ZipFile(file);
+            InputStream input = null;
+            OutputStream output = null;
+                //System.out.println("解压缩" + entry.getName() + "文件");
+                Log.e("解压缩" , filePath + "文件");
+                outFile = new File(outzippath + File.separator + filePath);
+                    if(!outFile.getParentFile().exists()){
+                        outFile.getParentFile().mkdirs();//坑爹点又被我碰到了
+                    }
+                    if(!outFile.exists()){
+                        outFile.createNewFile();
+                    }
+                    //entry=
+            ZipEntry entry=new ZipEntry(filePath);
+                input = zipFile.getInputStream(entry);
+                output = new FileOutputStream(outFile);
+                int temp = 0;
+                while((temp = input.read()) != -1){
+                    output.write(temp);
+                }
+                input.close();
+                output.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //android unzip
+
+   /* private static ThreadPoolExecutor threadPool = new ThreadPoolExecutor(2, 8, TimeUnit.SECONDS,
+            TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(4), new ThreadPoolExecutor.AbortPolicy());*/
+
+    private static ThreadPoolExecutor threadPool = new ThreadPoolExecutor(1, 4, 200,
+            TimeUnit.SECONDS, new ArrayBlockingQueue<Runnable>(4), new ThreadPoolExecutor.AbortPolicy());
+
+    public static void ZipContraMultiFile(String zippath ,String outzippath){
+        try {
+            File file = new File(zippath);
+            File outFile = null;
+            ZipFile zipFile = new ZipFile(file);
+            ZipInputStream zipInput = new ZipInputStream(new FileInputStream(file));
+            ZipEntry entry = null;
+            InputStream input = null;
+            OutputStream output = null;
+            while((entry = zipInput.getNextEntry()) != null){
+                //System.out.println("解压缩" + entry.getName() + "文件");
+                Log.e("解压缩" , entry.getName() + "文件");
+                outFile = new File(outzippath + File.separator + entry.getName());
+                Log.e("解压缩" , outFile.getPath() + "文件");
+                if (entry.isDirectory()){
+                    if(!outFile.getParentFile().exists()){
+                        outFile.getParentFile().mkdirs();//坑爹点又被我碰到了
+                    }
+                    continue;
+                }
+                else {
+                    if(!outFile.getParentFile().exists()){
+                        outFile.getParentFile().mkdir();//坑爹点又被我碰到了
+                    }
+                    if(!outFile.exists()){
+                        outFile.createNewFile();
+                    }
+                }
+
+                /*if(!outFile.getParentFile().exists()){
+                    outFile.getParentFile().mkdir();//坑爹点又被我碰到了
+                    continue;
+                }*/
+
+               /* if(!outFile.exists()){
+                    outFile.createNewFile();
+                }*/
+                input = zipFile.getInputStream(entry);
+                output = new FileOutputStream(outFile);
+                int temp = 0;
+                while((temp = input.read()) != -1){
+                    output.write(temp);
+                }
+                input.close();
+                output.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * Unzip the file by keyword.
+     *
+     * @param zipFile The ZIP file.
+     * @param destDir The destination directory.
+     * @param keyword The keyboard.
+     * @return the unzipped files
+     * @throws IOException if unzip unsuccessfully
+     */
+
+
+    public static List<File> unzipFileByKeyword(final File zipFile, final File destDir, final String keyword) throws IOException {
+        if (zipFile == null || destDir == null) return null;
+        List<File> files = new ArrayList<>();
+        ZipFile zip = new ZipFile(zipFile);
+        Enumeration<?> entries = zip.entries();
+        try {
+            if (isSpace(keyword)) {
+                while (entries.hasMoreElements()) {
+                    ZipEntry entry = ((ZipEntry) entries.nextElement());
+                    String entryName = entry.getName();
+                    if (entryName.contains("../")) {
+                        Log.e("ZipUtils", "it's dangerous!");//防止被利用漏洞恶意修改文件
+                        return files;
+                    }
+                    if (!unzipChildFile(destDir, files, zip, entry)) return files;
+                }
+            } else {
+                while (entries.hasMoreElements()) {
+                    ZipEntry entry = ((ZipEntry) entries.nextElement());
+                    String entryName = entry.getName();
+                    if (entryName.contains("../")) {
+                        Log.e("ZipUtils", "it's dangerous!");
+                        return files;
+                    }
+                    if (entryName.contains(keyword)) {
+                        if (!unzipChildFile(destDir, files, zip, entry)) return files;
+                    }
+                }
+            }
+        } finally {
+            zip.close();
+        }
+        return files;
+    }
+
+    private static boolean isSpace(String keyword) {
+        return false;
+    }
+
+    private static boolean unzipChildFile(final File destDir,final List<File> files,final ZipFile zip,final ZipEntry entry)
+            throws IOException {
+        File file = new File(destDir, entry.getName());
+        files.add(file);
+        if (entry.isDirectory()) {
+            return createOrExistsDir(file);//创建文件夹
+        } else {
+            if (!createOrExistsFile(file)) return false;
+            InputStream in = null;
+            OutputStream out = null;
+            try {
+                in = new BufferedInputStream(zip.getInputStream(entry));
+                out = new BufferedOutputStream(new FileOutputStream(file));
+                byte buffer[] = new byte[8000];
+                int len;
+                while ((len = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, len);
+                }
+            } finally {
+                if (in != null) {
+                    in.close();
+                }
+                if (out != null) {
+                    out.close();
+                }
+            }
+        }
+        return true;
+    }
+
+    private static boolean createOrExistsFile(File file) {
+        return false;
+    }
+
+    private static boolean createOrExistsDir(File file) {
+        return false;
+    }
+
 
     //讲parseXml 形成的json存储到本地某个文件夹下
     public static void wirteFileToE(String filename,String str){
@@ -728,6 +1473,8 @@ public class TestUtil {//测试方法包  /storage/emulated/0
        // Log.e("map0",xmlstr);
         return xmlstr;
     }
+
+
 
     public static String getFileString(Resources resources, String filename){
         StringBuilder sb= new StringBuilder();

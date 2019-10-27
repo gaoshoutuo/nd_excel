@@ -33,7 +33,7 @@ public class TestActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        //viewPagerSet();
+        viewPagerSet();
         //一个做校长的为人
         //makePannelAdapter();
 
@@ -98,7 +98,7 @@ public class TestActivity extends BaseActivity {
             return viewHolder;
         }
 
-        private class PannelViewHolder extends RecyclerView.ViewHolder {
+         class PannelViewHolder extends RecyclerView.ViewHolder {
             public TextView textView;
             public PannelViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -134,6 +134,7 @@ public class TestActivity extends BaseActivity {
             //photoView1.setMaxHeight(300);  我找到调整大小的办法了
 
             //Log.e("width",photoView1.getLayoutParams().width+"");//-1 我惊呆了
+            //emf no jpeg yes wmf no
 
             Bitmap bitmap1=BitmapFactory.decodeStream(getResources().getAssets().open("image1.png"));
             double sh=bitmap1.getWidth()/bitmap1.getHeight();

@@ -45,4 +45,17 @@ dependencies {
     implementation 'com.bm.photoview:library:1.4.1'
     //file select
     implementation 'com.leon:lfilepickerlibrary:1.8.0'
+
+
+
+    //android util 25k  vpn 被墙了 有什么办法呢
+    //implementation 'com.blankj:utilcode:1.25.9'
+    //implementation 'com.leo618:zip:0.0.1'
+
+// if u use AndroidX, use the following
+    //implementation 'com.blankj:utilcodex:1.25.9'
+
+    //dialog
+
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
 }
